@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body {
+  height: 100vh;
+}
+.heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 40%;
+  width: 100%;
+  background-color: #ecf0f1;
+  color: #004134;
+  text-align: center;
+}
+.heading textarea {
+  background: none;
+  outline: none;
+  resize: none;
+  border: 2px solid #bdc3c7;
+  border-radius: 10px;
+  padding: 10px;
+  color: #004134;
+  font-size: large;
+  transition: all 0.5s ease;
+}
+.heading textarea:focus {
+  border: 2px solid #004134;
+}
+.keyboard {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #004134;
+  padding: 5px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+  user-select: none;
+  transition: bottom 0.4s;
+}
+.keyboard_hidden {
+  bottom: -100%;
+}
+.keyboard_keys {
+  text-align: center;
+}
+.keyboard_key {
+  width: 6%;
+  height: 45px;
+  margin: 3px;
+  max-width: 2 00px;
+  border-radius: 4px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 1.05rem;
+  outline: none;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: top;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+}
+.keyboard_key:active {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+.keyboard_key_wide {
+  width: 12%;
+}
+.keyboard_key_extra_wide {
+  width: 36%;
+  max-width: 500px;
+}
+.keyboard_key_activateable:after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(0,0,0,0.4);
+}
+.keyboard_key_active:after{
+    background-color: #00FF00;
+}
+.keyboard_key_dark{
+    background-color: rgba(0, 0, 0, 0.25);
+}
