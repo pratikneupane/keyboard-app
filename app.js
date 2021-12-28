@@ -23,6 +23,8 @@ const Keyboard = {
 
     //setup keys
     this.elements.keysContainer.appendChild(this._createKeys());
+    this.elements.keys =
+      this.elements.keysContainer.querySelectorAll(".keyboard_key");
 
     //Add to DOM
     this.elements.main.appendChild(this.elements.keysContainer);
@@ -120,7 +122,14 @@ const Keyboard = {
     console.log("Event Triggred, Handler name: " + handlerName);
   },
   _toggleCapsLock() {
-    console.log("Caps Lock TOggled");
+    this.properties.capsLock = !this.properties.capsLock;
+    for (const key of this.elements.keys) {
+      if (key.childElementCount == 0) {
+        key.textContent = this.properties.capsLock
+          ? key.textContent.toUpperCase()
+          : key.textContent.toLowerCase();
+      }
+    }
   },
   open(initialValue, oninput, onclose) {},
   close() {},
