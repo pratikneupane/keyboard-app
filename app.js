@@ -45,74 +45,75 @@ const Keyboard = {
       const keyElement = document.createElement("button");
       const insertLineBreak =
         ["backspace", "p", "enter", "?"].indexOf(key) !== -1;
-    });
-    //Add Attributes/classes
-    keyElement.setAttribute("type", "button");
-    keyElement.classList.add("keyboard_key");
+      //Add Attributes/classes
+      keyElement.setAttribute("type", "button");
+      keyElement.classList.add("keyboard_key");
 
-    switch (key) {
-      case "backspace":
-        keyElement.classList.add("keyboard_key_wide");
-        keyElement.innerHTML = createIconHTML("backspace");
-        keyElement.addEventListener("click", () => {
-          this.properties.value = this.properties.value.substring(
-            0,
-            this.properties.value.length - 1
+      switch (key) {
+        case "backspace":
+          keyElement.classList.add("keyboard_key_wide");
+          keyElement.innerHTML = createIconHTML("backspace");
+          keyElement.addEventListener("click", () => {
+            this.properties.value = this.properties.value.substring(
+              0,
+              this.properties.value.length - 1
+            );
+            this._triggerEvent("oninput");
+          });
+          break;
+        case "caps":
+          keyElement.classList.add(
+            "keyboard_key_wide",
+            "keyboard_key_activateable"
           );
-          this._triggerEvent("oninput");
-        });
-        break;
-      case "caps":
-        keyElement.classList.add(
-          "keyboard_key_wide",
-          "keyboard_key_activateable"
-        );
-        keyElement.innerHTML = createIconHTML("keyboard_capslock");
-        keyElement.addEventListener("click", () => {
-          this._toggleCapsLock();
-          keyElement.classList.toggle(
-            "keyboard_key_active",
-            this.properties.capsLock
-          );
-        });
-        break;
-      case "enter":
-        keyElement.classList.add("keyboard_key_wide");
-        keyElement.innerHTML = createIconHTML("keyboard_return");
-        keyElement.addEventListener("click", () => {
-          this.properties.value += "\n";
-          this._triggerEvent("oninput");
-        });
-        break;
-      case "space":
-        keyElement.classList.add("keyboard_key_extra_wide");
-        keyElement.innerHTML = createIconHTML("space_bar");
-        keyElement.addEventListener("click", () => {
-          this.properties.value += " ";
-          this._triggerEvent("oninput");
-        });
-        break;
-      case "done":
-        keyElement.classList.add("keyboard_key_wide", "keyboard_key_dark");
-        keyElement.innerHTML = createIconHTML("check_circle");
-        keyElement.addEventListener("click", () => {
-          this.close();
-          this._triggerEvent("onclose");
-        });
-        break;
-      default:
-        keyElement.textContent = key.toLowerCase();
-        keyElement.addEventListener("click", () => {
-          this.properties.value += this.properties.capsLock
-            ? key.toUpperCase()
-            : key.toLowerCase();
-          this._triggerEvent("oninput");
-        });
-    }
-    fragment.appendChild(keyElement);
-    if (insertLineBreak) {
-      fragment.appendChild(document.createElement("br"));
-    }
+          keyElement.innerHTML = createIconHTML("keyboard_capslock");
+          keyElement.addEventListener("click", () => {
+            this._toggleCapsLock();
+            keyElement.classList.toggle(
+              "keyboard_key_active",
+              this.properties.capsLock
+            );
+          });
+          break;
+        case "enter":
+          keyElement.classList.add("keyboard_key_wide");
+          keyElement.innerHTML = createIconHTML("keyboard_return");
+          keyElement.addEventListener("click", () => {
+            this.properties.value += "\n";
+            this._triggerEvent("oninput");
+          });
+          break;
+        case "space":
+          keyElement.classList.add("keyboard_key_extra_wide");
+          keyElement.innerHTML = createIconHTML("space_bar");
+          keyElement.addEventListener("click", () => {
+            this.properties.value += " ";
+            this._triggerEvent("oninput");
+          });
+          break;
+        case "done":
+          keyElement.classList.add("keyboard_key_wide", "keyboard_key_dark");
+          keyElement.innerHTML = createIconHTML("check_circle");
+          keyElement.addEventListener("click", () => {
+            this.close();
+            this._triggerEvent("onclose");
+          });
+          break;
+        default:
+          keyElement.textContent = key.toLowerCase();
+          keyElement.addEventListener("click", () => {
+            this.properties.value += this.properties.capsLock
+              ? key.toUpperCase()
+              : key.toLowerCase();
+            this._triggerEvent("oninput");
+          });
+      }
+      fragment.appendChild(keyElement);
+      if (insertLineBreak) {
+        fragment.appendChild(document.createElement("br"));
+      }
+    });
+
     return fragment;
   },
   _triggerEvent(handlerName) {
