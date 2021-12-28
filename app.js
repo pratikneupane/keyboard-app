@@ -18,7 +18,7 @@ const Keyboard = {
     this.elements.keysContainer = document.createElement("div");
 
     //Add Classes
-    this.elements.main.classList.add("keyboard", "1keyboard_hidden");
+    this.elements.main.classList.add("keyboard", "keyboard_hidden");
     this.elements.keysContainer.classList.add("keyboard_keys");
 
     //setup keys
@@ -29,6 +29,15 @@ const Keyboard = {
     //Add to DOM
     this.elements.main.appendChild(this.elements.keysContainer);
     document.body.appendChild(this.elements.main);
+
+    //Open Keyboard in HTML
+    document.querySelectorAll(".use_keyboard_input").forEach((element) => {
+      element.addEventListener("focus", () => {
+        this.open(element.value, (currentValue) => {
+          element.value = currentValue;
+        });
+      });
+    });
   },
   _createKeys() {
     const fragment = document.createDocumentFragment();
@@ -119,7 +128,9 @@ const Keyboard = {
     return fragment;
   },
   _triggerEvent(handlerName) {
-    console.log("Event Triggred, Handler name: " + handlerName);
+    if (typeof this.eventHandlers[handlerName] == "function") {
+      this.eventHandlers[handlerName](this.properties.value);
+    }
   },
   _toggleCapsLock() {
     this.properties.capsLock = !this.properties.capsLock;
@@ -131,8 +142,18 @@ const Keyboard = {
       }
     }
   },
-  open(initialValue, oninput, onclose) {},
-  close() {},
+  open(initialValue, oninput, onclose) {
+    this.properties.value = initialValue || "";
+    this.eventHandlers.oninput = oninput;
+    this.eventHandlers.onclose = onclose;
+    this.elements.main.classList.remove("keyboard_hidden");
+  },
+  close() {
+    this.properties.value = "";
+    this.eventHandlers.oninput = oninput;
+    this.eventHandlers.onclose = onclose;
+    this.elements.main.classList.add("keyboard_hidden");
+  },
 };
 
 window.addEventListener("DOMContentLoaded", () => {
